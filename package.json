@@ -1,0 +1,16 @@
+{
+  "name": "post-man",
+  "version": "1.0.0",
+  "description": "A discord bot to send emails with a slash command",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Théo Constant",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.5.0",
+    "nodemailer": "^6.8.0",
+    "openurl2": "^1.0.1"
+  }
+}
