@@ -1,7 +1,7 @@
 {
-  "name": "post-man",
+  "name": "postman",
   "version": "1.0.0",
-  "description": "A discord bot to send emails with a slash command",
+  "description": "A simple discord bot that allows to send emails with a command to a subscribed list of users.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
