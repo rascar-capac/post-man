@@ -36,7 +36,7 @@ client.on('interactionCreate', async interaction => {
         await command.execute(interaction);
     }
     catch (error) {
-        await interaction.reply({ content: 'Une erreur est survenue à l’exécution de cette commande !', ephemeral: true });
+        await interaction.reply({ content: 'An error has occured while the execution of this command!', ephemeral: true });
         console.error(error);
     }
 });
@@ -51,7 +51,7 @@ client.on('interactionCreate', async interaction => {
         await modalSubmitHandler(interaction);
     }
     catch (error) {
-        await interaction.reply({ content: 'Une erreur est survenue à l’interprétation des données reçues !', ephemeral: true });
+        await interaction.reply({ content: 'An error has occured while interpreting the received data!', ephemeral: true });
         console.error(error);
     }
 })

@@ -2,20 +2,20 @@ const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('désabonner')
-        .setDescription('Désabonne un membre aux mails envoyés par le bot')
+        .setName('unsubscribe')
+        .setDescription('Unsubscribes a user from the emails sent by PostMan')
         .addUserOption(option =>
             option
-                .setName('utilisateur')
-                .setDescription('L’utilisateur que vous voulez désabonner')
+                .setName('user')
+                .setDescription('The user you want to unsubscribe')
                 .setRequired(true)),
     async execute(interaction) {
-        const userToUnsubscribe = interaction.options.getUser('utilisateur');
+        const userToUnsubscribe = interaction.options.getUser('user');
         if (interaction.client.subscribers.delete(userToUnsubscribe)) {
-            await interaction.reply(`L’adresse email de l’utilisateur ${userToUnsubscribe} n’est plus abonnée aux mails !`);
+            await interaction.reply(`${userToUnsubscribe}'s email address is no longer subscribed to PostMan!`);
         }
         else {
-            await interaction.reply({ content: `L’utilisateur ${userToUnsubscribe} n’était pas abonné !`, allowedMentions: { parse: [] } })
+            await interaction.reply({ content: `${userToUnsubscribe} wasn't subscribed!`, allowedMentions: { parse: [] } })
         }
     },
 };

@@ -4,11 +4,11 @@ const openurl = require('openurl2');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('mail')
-        .setDescription('Démarre un mail depuis votre boîte aux membres abonnés aux mails et appartenant au rôle spécifié')
+        .setDescription('Starts an email from your mailbox to the users subscribed to PostMan and in the specified role')
         .addRoleOption(option =>
             option
                 .setName('role')
-                .setDescription('Le rôle dont les membres (abonnés aux mails) recevront ce mail')
+                .setDescription('The role whose members (subscribed to PostMan) will receive this email')
                 .setRequired(true)
             ),
     async execute(interaction) {
@@ -36,10 +36,10 @@ module.exports = {
                 fields.body = body;
             }
             openurl.mailto([recipients], fields);
-            await interaction.reply({ content: `Mail envoyé aux membres abonnés du rôle ${role} :\n${subscribersString}`, allowedMentions: { parse: [] } });
+            await interaction.reply({ content: `Email sent to subscribers in ${role} :\n${subscribersString}`, allowedMentions: { parse: [] } });
         }
         else {
-            await interaction.reply({ content: `Aucun membre abonné dans le rôle ${role}…`, allowedMentions: { parse: [] } });
+            await interaction.reply({ content: `No user is subscribed in ${role}…`, allowedMentions: { parse: [] } });
         }
     },
 };

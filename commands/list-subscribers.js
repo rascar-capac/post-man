@@ -2,8 +2,8 @@ const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('listerabonnés')
-        .setDescription('Liste tous les membres abonnés aux mails envoyés par le bot'),
+        .setName('listsubscribers')
+        .setDescription('Lists all the users subscribed to the emails sent by PostMan'),
     async execute(interaction) {
         let subscribersString = '';
         if (interaction.client.subscribers.size > 0) {
@@ -11,10 +11,10 @@ module.exports = {
             for (const subscriber of subscribers) {
                 subscribersString += `${subscriber}\n`;
             }
-            await interaction.reply({content: `Abonnés :\n${subscribersString}`, ephemeral: true, allowedMentions: { parse: [] } });
+            await interaction.reply({content: `Subscribed users:\n${subscribersString}`, ephemeral: true, allowedMentions: { parse: [] } });
         }
         else {
-            await interaction.reply({ content: 'Aucun membre n’est abonné !', ephemeral: true});
+            await interaction.reply({ content: 'There isn\'t any subscribed user!', ephemeral: true});
         }
     },
 };

@@ -2,21 +2,21 @@ const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('abonner')
-        .setDescription('Abonne un membre aux mails envoyés par le bot')
+        .setName('subscribe')
+        .setDescription('Subscribes a user to the emails sent by PostMan')
         .addUserOption(option =>
             option
-                .setName('utilisateur')
-                .setDescription('L’utilisateur que vous voulez abonner')
+                .setName('user')
+                .setDescription('The user you want to subscribe')
                 .setRequired(true))
         .addStringOption(option =>
             option
-                .setName('adresse-email')
-                .setDescription('L’adresse email de l’utilisateur')
+                .setName('address')
+                .setDescription('The user\'s email address')
                 .setRequired(true)),
     async execute(interaction) {
-        const newUser = interaction.options.getUser('utilisateur');
-        interaction.client.subscribers.set(newUser, interaction.options.getString('adresse-email'));
-        await interaction.reply(`L’adresse email de l’utilisateur ${newUser} est maintenant abonnée aux mails !`);
+        const newUser = interaction.options.getUser('user');
+        interaction.client.subscribers.set(newUser, interaction.options.getString('address'));
+        await interaction.reply(`${newUser}'s email address is now subscribed to PostMan !`);
     },
 };

@@ -1,30 +1,30 @@
 const { SlashCommandBuilder, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle } = require('discord.js');
 const nodemailer = require('nodemailer');
-const { dpedrHost, dpedrPort, dpedrUser, dpedrPassword } = require('../config.json');
+const { customHost, customPort, customUser, customPassword } = require('../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('maildpedr')
-        .setDescription('Envoie un mail DPEDR aux membres abonnés aux mails et appartenant au rôle spécifié')
+        .setName('directmail')
+        .setDescription('Sends an email with the configured address to the subscribed users')
         .addRoleOption(option =>
             option
                 .setName('role')
-                .setDescription('Le rôle dont les membres (abonnés aux mails) recevront ce mail')
+                .setDescription('The role whose members (subscribed to PostMan) will receive this email')
                 .setRequired(true)
             ),
     async execute(interaction) {
         const modal = new ModalBuilder()
-            .setCustomId('newMail')
-            .setTitle('Nouveau mail');
+            .setCustomId('newEmail')
+            .setTitle('New email');
         const objectInput = new TextInputBuilder()
             .setCustomId('object')
-            .setLabel('Objet du mail')
-            .setPlaceholder('Ajouter un objet ici…')
+            .setLabel('Object of the email')
+            .setPlaceholder('Add an object here…')
             .setStyle(TextInputStyle.Short);
         const contentInput = new TextInputBuilder()
             .setCustomId('content')
-            .setLabel('Contenu du mail')
-            .setPlaceholder('et rédigez votre message ici !')
+            .setLabel('Body of the email')
+            .setPlaceholder('and write your message here!')
             .setStyle(TextInputStyle.Paragraph);
         const objectActionRow = new ActionRowBuilder().addComponents(objectInput);
         const contentActionRow = new ActionRowBuilder().addComponents(contentInput);
@@ -67,15 +67,15 @@ module.exports = {
 
                 transporter.sendMail(mailOptions, async error => {
                     if (error) {
-                        await modalInteraction.reply({ content: 'Une erreur est survenue durant l’envoi du mail !'});
+                        await modalInteraction.reply({ content: 'An error has occured while the email was being sent !'});
                         console.log(error);
                     } else {
-                        await modalInteraction.reply({ content: `Mail envoyé aux membres abonnés du rôle ${role} :\n${subscribersString}`, allowedMentions: { parse: [] } });
+                        await modalInteraction.reply({ content: `Email sent to subscribers in ${role} :\n${subscribersString}`, allowedMentions: { parse: [] } });
                     }
                 });
             }
             else {
-                await modalInteraction.reply({ content: `Aucun membre abonné dans le rôle ${role}…`, allowedMentions: { parse: [] } });
+                await modalInteraction.reply({ content: `No user is subscribed in ${role}…`, allowedMentions: { parse: [] } });
             }
         });
 
