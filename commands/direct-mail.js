@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle } = require('discord.js');
 const nodemailer = require('nodemailer');
-const { customHost, customPort, customUser, customPassword } = require('../config.json');
+const { directHost, directPort, directUser, directPassword } = require('../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -49,17 +49,17 @@ module.exports = {
                 const subject = modalInteraction.fields.getTextInputValue('object');
                 const body = modalInteraction.fields.getTextInputValue('content');
                 const transporter = nodemailer.createTransport({
-                    host: customHost,
-                    port: customPort,
+                    host: directHost,
+                    port: directPort,
                     secure: false,
                     auth: {
-                        user: customUser,
-                        pass: customPassword
+                        user: directUser,
+                        pass: directPassword
                     },
                     tls: { rejectUnauthorized: false }
                 });
                 const mailOptions = {
-                    from: customUser,
+                    from: directUser,
                     to: recipients,
                     subject: subject,
                     text: body
