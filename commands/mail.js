@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const openurl = require('openurl2');
 
 module.exports = {
@@ -35,11 +35,22 @@ module.exports = {
             {
                 fields.body = body;
             }
-            openurl.mailto([recipients], fields);
-            await interaction.reply({ content: `Email sent to subscribers in ${role} :\n${subscribersString}`, allowedMentions: { parse: [] } });
+            const url = 'mailto:' + recipients.join(',');
+            Object.keys(fields).forEach(function (key, index) {
+                if (index === 0) {
+                    url += "?";
+                } else {
+                    url += "&";
+                }
+                url += key + "=" + encodeURIComponent(fields[key]);
+            });
+
+            const embed = new EmbedBuilder()
+                .setDescription(`[Click here to be redirected to your mailbox!](${url})`);
+            await interaction.reply({ embeds: [embed], ephemeral: true });
         }
         else {
-            await interaction.reply({ content: `No user is subscribed in ${role}…`, allowedMentions: { parse: [] } });
+            await interaction.reply({ content: `No user is subscribed in ${role}…`, ephemeral: true, allowedMentions: { parse: [] } });
         }
     },
 };
