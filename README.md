@@ -24,7 +24,7 @@ You'll have to create yourself a new discord application, clone this on a server
     "guildId": "XXX",
     "token": "XXX",
     "directHost": "XXX",
-    "directPort": XXX,
+    "directPort": "XXX",
     "directUser": "XXX",
     "directPassword": "XXX"
 }
